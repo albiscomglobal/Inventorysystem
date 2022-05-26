@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,7 +24,11 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private CategoryRepository categoryRepository;
+    private  final CategoryRepository categoryRepository;
+
+    public CategoryController(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
 
     @GetMapping("/category")
@@ -67,12 +72,12 @@ public class CategoryController {
     @PostMapping("/addcategory")
 
     public String saveCategory (@Valid @ModelAttribute("categories") Category categories,
-                                BindingResult bindingResult, Model model) {
+                                BindingResult bindingResult, RedirectAttributes ra, Model model) {
         if (bindingResult.hasErrors()) {
             return "addcategory";
         }
         categoryService.saveCategory(categories);
-        System.out.println("Successful");
+        ra.addFlashAttribute("message" , "The category has been saved successfully");
         return "redirect:/category ";
 
 
@@ -87,7 +92,7 @@ public class CategoryController {
     }
 
 
-    @RequestMapping(path = { "/update","/update/{id}"})
+   /* @GetMapping(path = { "/update","/update/{id}"})
 
     public String updateCategory (@PathVariable("id") Long id, Category category,BindingResult result, Model model){
         category.setId(id);
@@ -98,7 +103,7 @@ public class CategoryController {
          categoryService.updateCategory(category);
         model.addAttribute("category", category);
         return "addcategory";
-    }
+    }*/
   /*  @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Category category = categoryRepository.findById(id)
@@ -109,11 +114,37 @@ public class CategoryController {
 */
 
     @GetMapping("/addnewcategory")
-    public String showCreateaddNewCategory(Model model){
+    public String showCreateaddNewCategory(Model model) {
         model.addAttribute("categories", new Category());
         return "addcategory";
+
     }
-}
+
+        @GetMapping("edit/{id}")
+        public String showUpdateForm(@PathVariable("id") long id, Model model) {
+            Category category = categoryRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid Category Id:" + id));
+            model.addAttribute("category", category);
+            return "update-category";
+        }
+
+        @PostMapping("update/{id}")
+        public String updateStudent(@PathVariable("id") long id, @Valid Category category, BindingResult result,
+                Model model) {
+            if (result.hasErrors()) {
+                category.setId(id);
+                return "update-category";
+            }
+
+            categoryRepository.save(category);
+            model.addAttribute("category", categoryRepository.findAll());
+            return "redirect:/category";
+        }
+
+    }
+
+
+
 
 
 

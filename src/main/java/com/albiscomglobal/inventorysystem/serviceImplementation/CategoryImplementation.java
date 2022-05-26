@@ -1,6 +1,7 @@
 package com.albiscomglobal.inventorysystem.serviceImplementation;
 
 import com.albiscomglobal.inventorysystem.domain.Category;
+import com.albiscomglobal.inventorysystem.exception.CategoryNotFoundException;
 import com.albiscomglobal.inventorysystem.repository.CategoryRepository;
 import com.albiscomglobal.inventorysystem.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -59,6 +61,16 @@ public class CategoryImplementation implements CategoryService {
     public Category updateCategory(Category category) {
 
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public Category findById(Long id) throws CategoryNotFoundException {
+        //categoryRepository.findById(id);
+        Optional<Category> result = categoryRepository.findById(id);
+        if (result.isPresent()){
+            return result.get();
+        }
+        throw new CategoryNotFoundException("could not find the category with id" +id);
     }
 }
 

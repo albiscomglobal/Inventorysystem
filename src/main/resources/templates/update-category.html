@@ -3,11 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Category</title>
+    <title>Update Category</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.4 -->
-
     <link href="./BootStrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- FontAwesome 4.3.0 -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -30,8 +29,6 @@
     <link href="./plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="./plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
-
-<!--<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -316,12 +313,6 @@
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search..." />
                     <span class="input-group-btn">
-
-                        &nbsp;
-
-                         <input type="text" name="q" class="form-control" placeholder="Search..." />
-
-
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
               </span>
                 </div>
@@ -331,7 +322,7 @@
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="active treeview">
-                    <a th:href="@{/superadminpage}">
+                    <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Adminstrator</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -345,18 +336,6 @@
                         <li> class="active"><a th:href="@{/users}"><i class="fa fa-circle-o"></i> Users</a></li>
                         <li> class="active"><a th:href="@{/createuser}"><i class="fa fa-circle-o"></i> Create Users</a></li>
                         <li>class="active"><a th:href="@{/changepassword}"><i class="fa fa-circle-o"></i> Change Password</a></li>
-                    </ul>
-                </li>
-<!--Commncement of the second Tree-->
-                <li class="active treeview">
-                    <a th:href="@{/superadminpage}">
-                        <i class="fa fa-dashboard"></i> <span>Add New Contents</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-
-                        <li>class="active"><a th:href="@{/addnewcategory}"><i class="fa fa-circle-o"></i>New Category</a></li>
-                        <li>class="active"><a th:href="@{/addnewcategory}"><i class="fa fa-circle-o"></i>New Brand</a></li>
-                        <li>class="active"><a th:href="@{/addnewcategory}"><i class="fa fa-circle-o"></i>New Product</a></li>
                     </ul>
                 </li>
 
@@ -373,203 +352,78 @@
 
                 <li class="active"></li>
             </ol>
-        <div>
+            <div>
 
 
-        </div>
-
-        <fieldset>
-        <div class="form-group">
-            <div class="col-sm-7 col-sm-offset-1">
-                <div class="pull-left">
-
-                    <a th:href="@{/addnewcategory}" class="btn btn-primary">Add Category</a>
-
-                </div>
-            </div>
-        </div>
-
-
-         <!--   Search box for the bootstrap in thymleaf-->
-
-            <div class="input-group col-md-3">
-                <form th:action="@{/search}">
-            <input class="form-control py-2" type="search"  name ="keyword" th:value="${keyword}" id="example-search-input" required>
-
-                <span class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">
-                 <i class="fa fa-search"></i>
-                        </button>
-
-                         <button type="button" class="btn btn-danger"  value ="Clear" onclick="clearFilter()" > Clear</button>
- </form>
-
-
-      </span>
-            </div>
-
-<!--
-Add Flash to the Page
--->
-
-            <div th:if="${message}" class="alert alert-success text-center">
-
-            [[${message}]]
             </div>
 
 
 
- <table class="table table-hover">
-                <thead class="bg-light">
-                <tr>
-                    <th>NO</th>
-                    <th>Category ID</th>
-                    <th><a th:href="@{'/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir}}">Category Name</a></th>
-                    <th>Created On </th>
-                    <th>Updated On </th>
-                    <th>Status</th>
-                     <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr th:each="category, iterStat : ${categories}">
-
-                    <td th:text="${iterStat.count}" th:class="${iterStat.even == true ? 'text-primary' : 'text-success'}">
-                        <div class="d-flex align-items-center">
-
-                            <div class="ms-3">
-                                <p th:text class="fw-bold mb-1">  </p>&ndash;&gt;&ndash;&gt;
-
-                            </div>
-                        </div>
-                    </td>
-
-                  <td th:text="${category.id}">
-                        <div class="d-flex align-items-center">
-
-                            <div class="ms-3">
-               <p th:text class="fw-bold mb-1">  </p>&ndash;&gt;&ndash;&gt;
-
-                            </div>
-                        </div>
-                    </td>
-
-
-                    <td th:text="${category.category}">
-                     <p th:text class="text-muted mb-0" > </p>&ndash;&gt;
-                    </td>
-                    <td th:text="${category.CreatedAt}">
-                <p th:text class="text-muted mb-0">  </p>&ndash;&gt;
-                    </td>
-
-
-                    <td th:text="${category.UpdatedAt}">
-
-                 <p th:text class="text-muted mb-0">  </p>&ndash;&gt;
-                    </td>
 
 
 
-
-                    <td  th:switch="${category.status}">
-
-                        <p th:case="1"> <button type="button" class="btn btn-success btn-sm">Active</button>
-                        <p th:case="2"><button type="button" class="btn btn-warning btn-sm">Inactive</button>
-                    </td>
-
-
-                    <td>
-                    <!--    <button type="button" class="btn btn-info">Edit</button>-->
-                        <a th:href="@{edit/{id}(id=${category.id})}" class="btn btn-primary">Edit</a>
-                        <a th:href="@{/deleteCategory/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
-                        <!--<button type="button" class="btn btn-danger" <a th:href="@{/deleteCategory/{id}(id=${category.id})}>" Delete</a></button>-->
-                    </td>
-                </tr>
-
-                </tbody>
-
-
-            </table>
-
-<div th:if = "${totalPages > 1}">
-    <div class = "row col-sm-10">
-        <div class = "col-sm-2">
-            Total rows: [[${totalItems}]]
-        </div>
-
-        <div class = "col-sm-5">
-            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                <a th:if="${currentPage != i }" th:href="@{'/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"> [[${i}]]</a>
-                <span th:unless="${currentPage != i}"> [[${i}]]</span> &nbsp; &nbsp;
-            </span>
-        </div>
-        <div class = "col-sm-1">
-            <a class="btn btn-primary" th:if="${currentPage < totalPages}" th:href="@{'/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' +${sortDir}}">&laquo; Next</a>
-            <span th:unless="${currentPage < totalPages}">&laquo;  Next</span>
-        </div>
-
-        <div class = "col-sm-1" >
-            <a class="btn btn-primary" th:if="${currentPage < totalPages}" th:href="@{'/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"> &laquo; Last</a>
-            <span th:unless="${currentPage < totalPages}"> &laquo;  Last</span>
-        </div>
-</div>
-
-
-
-
-
-
-
-
-        </fieldset>
-            <!-- Modal -->
-<!--
-            <form th:action="@{/categories}"   >-->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Add New Category</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="col-xs-8">
-                                    <label >Category Name</label><span id="MainPlaceHolder1_RequiredFieldValidator17" style="color:Red;display:none;">Please enter Category Name</span>
-                               <!--     &nbsp;<input name="" type="text"   th:field="*{category}" class="form-control" placeholder="Enter Category"  required />-->
-                                    <input type="text"  placeholder="Enter Category" class="form-control mb-4 col-4" required>
-                                </div>
-                            </div>
-                                &nbsp;
-<br>
-
-                                <div class="form-group">
-                                    <div class="col-xs-8">
-                                        <select name="department" id="MainPlaceHolder1_titlelist"  class="form-control"  required  >
-                                            <option value="1">Active</option>
-                                            <option value="2">Inactive</option>
-                                        </select>
+            <div class="container my-5">
+                <h3> Update Student</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-8">
+                            <form action="#"
+                                  th:action="@{update/{id}(id=${category.id})}"
+                                  th:object="${category}" method="post">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="category" class="col-form-label">Category</label> <input
+                                            type="text" th:field="*{category}" class="form-control" id="category"
+                                            placeholder="Category"> <span
+                                            th:if="${#fields.hasErrors('category')}" th:errors="*{category}"
+                                            class="text-danger"></span>
                                     </div>
-                            </div>
 
 
 
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    <div class="form-group">
+                                        <div class="col-xs-8">
+                                            <label for="exampleFormControlSelect1">Status</label>
+                                            <select class="form-control"  th:field="*{status}"  id="exampleFormControlSelect1">
+                                                <option value="1">Active</option>
+                                                <option value="2">Inactive</option>
+                                            </select>
+                                            <span
+                                            th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
+                                            class="text-danger"></span>
+                                        </div>
+                                    </div>
 
-
+                                    <div class="form-group col-md-8">
+                                        <input type="submit" class="btn btn-primary"
+                                               value="Update Category">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
-    </div><!-- /.content-wrapper -->
-            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 </div><!-- /.content-wrapper -->
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
 
@@ -743,12 +597,7 @@ Add Flash to the Page
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div><!-- ./wrapper -->
-<script type="text/javascript">
 
-    function clearFilter(){
-    window.location =  '/xgrowth/category';
-    }
-</script>
 <!-- jQuery 2.1.4 -->
 <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

@@ -1,6 +1,7 @@
 package com.albiscomglobal.inventorysystem.service;
 
 import com.albiscomglobal.inventorysystem.domain.Category;
+import com.albiscomglobal.inventorysystem.exception.CategoryNotFoundException;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface CategoryService {
    void deleteCategory(Long id);
 
    Category updateCategory(Category category);
+
+   Category findById (Long id) throws CategoryNotFoundException;
 
 
 }
