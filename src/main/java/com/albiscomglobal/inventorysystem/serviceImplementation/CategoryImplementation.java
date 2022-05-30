@@ -64,13 +64,30 @@ public class CategoryImplementation implements CategoryService {
     }
 
     @Override
+    public Category findById(Long id) {
+        Optional<Category> result = categoryRepository.findById(id);
+
+        Category category= null;
+
+        if (result.isPresent()) {
+            category = result.get();
+        }
+        else {
+            // we didn't find the employee
+            throw new RuntimeException("Did not find category id - " + id);
+        }
+
+        return category;
+    }
+
+    /*@Override
     public Category findById(Long id) throws CategoryNotFoundException {
         //categoryRepository.findById(id);
         Optional<Category> result = categoryRepository.findById(id);
         if (result.isPresent()){
             return result.get();
         }
-        throw new CategoryNotFoundException("could not find the category with id" +id);
+        throw new CategoryNotFoundException("could not find the category with id" +id);*/
     }
-}
+
 

@@ -24,7 +24,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private  final CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public CategoryController(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -71,13 +71,13 @@ public class CategoryController {
 
     @PostMapping("/addcategory")
 
-    public String saveCategory (@Valid @ModelAttribute("categories") Category categories,
-                                BindingResult bindingResult, RedirectAttributes ra, Model model) {
+    public String saveCategory(@Valid @ModelAttribute("categories") Category categories,
+                               BindingResult bindingResult, RedirectAttributes ra, Model model) {
         if (bindingResult.hasErrors()) {
             return "addcategory";
         }
         categoryService.saveCategory(categories);
-        ra.addFlashAttribute("message" , "The category has been saved successfully");
+        ra.addFlashAttribute("message", "The category has been saved successfully");
         return "redirect:/category ";
 
 
@@ -86,32 +86,13 @@ public class CategoryController {
 
     @GetMapping("/deleteCategory/{id}")
 
-    public String deleteCategory (@PathVariable(value= "id") Long id){
+    public String deleteCategory(@PathVariable(value = "id") Long id) {
         this.categoryService.deleteCategory(id);
         return "redirect:/category";
     }
 
 
-   /* @GetMapping(path = { "/update","/update/{id}"})
-
-    public String updateCategory (@PathVariable("id") Long id, Category category,BindingResult result, Model model){
-        category.setId(id);
-        if(result.hasErrors()){
-            category.setId(id);
-            return "category";
-        }
-         categoryService.updateCategory(category);
-        model.addAttribute("category", category);
-        return "addcategory";
-    }*/
-  /*  @GetMapping("edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + id));
-        model.addAttribute("category", category);
-        return "addcategory";
-    }
-*/
+   
 
     @GetMapping("/addnewcategory")
     public String showCreateaddNewCategory(Model model) {
@@ -120,31 +101,23 @@ public class CategoryController {
 
     }
 
-        @GetMapping("edit/{id}")
-        public String showUpdateForm(@PathVariable("id") long id, Model model) {
-            Category category = categoryRepository.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid Category Id:" + id));
-            model.addAttribute("category", category);
-            return "update-category";
-        }
 
-        @PostMapping("update/{id}")
-        public String updateStudent(@PathVariable("id") long id, @Valid Category category, BindingResult result,
-                Model model) {
-            if (result.hasErrors()) {
-                category.setId(id);
-                return "update-category";
-            }
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("id") int id,
+                                    Model theModel) {
 
-            categoryRepository.save(category);
-            model.addAttribute("category", categoryRepository.findAll());
-            return "redirect:/category";
-        }
+        // get the employee from the service
+        Category category = categoryService.findById((long) id);
 
+        // set employee as a model attribute to pre-populate the form
+        theModel.addAttribute("categories", category);
+
+        // send over to our form
+        return "addcategory";
     }
 
 
-
+}
 
 
 

@@ -22,7 +22,9 @@ public interface CategoryService {
 
    Category updateCategory(Category category);
 
-   Category findById (Long id) throws CategoryNotFoundException;
+   //Category findById (Long id) throws CategoryNotFoundException;
+
+    public Category findById(Long id);
 
 
 }

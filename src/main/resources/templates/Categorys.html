@@ -481,7 +481,7 @@ Add Flash to the Page
 
                     <td>
                     <!--    <button type="button" class="btn btn-info">Edit</button>-->
-                        <a th:href="@{edit/{id}(id=${category.id})}" class="btn btn-primary">Edit</a>
+                        <a th:href="@{/showFormForUpdate(id=${category.id})}" class="btn btn-primary">Edit</a>
                         <a th:href="@{/deleteCategory/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
                         <!--<button type="button" class="btn btn-danger" <a th:href="@{/deleteCategory/{id}(id=${category.id})}>" Delete</a></button>-->
                     </td>
